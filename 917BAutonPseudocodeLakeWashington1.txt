@@ -1,0 +1,5 @@
+backBlue
+//PRECONDITION: INTAKE ROLLERS ARE GOING INWARDS, ARM IS DOWN, DRIVE IS ZERO
+MoveStraight(64, 600); // 600ms ~ 2 tiles
+wait1Msec(1000); // Stabilize and take in balls
+MoveStraight(-64, 600); // move back to starting square

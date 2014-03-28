@@ -1,0 +1,44 @@
+/*Goals
+{
+	Can't raise lower than LOW
+	Can't raise higher than HIGH -> To difficult because inaccuracy and not big issue
+	Arm Holding between PRE_HIGH and HIGH
+	Different Arm Holding between BUMP and PRE_HIGH
+}
+*/
+int LOW = 600;
+int HIGH = 1750;
+int PRE_HIGH = 1700;
+
+if(Sensor Left < LOW || Sensor Right < LOW)
+{
+	LiftPower = up*127 - down*0; // can only go up now
+}
+
+
+//PRE-CONDITION: Arm Holding is Autonomous, 
+//No user input, but user needs to take manual on demand
+if((Btn5U == 0 && Btn5D == 0) && (Sensor Right > PRE_HIGH || Sensor Left > PRE_HIGH))
+{//If no input and at the same time either arm is above PRE_HIGH...
+	LiftPower = 45;//Arbitrary Number
+}
+//Manual Drive if ^ are false
+LiftPower = vexRT[Btn5U]*127 - vexRT[Btn5D]*127;
+
+REVAMP:
+
+// Logic order -> if no input and already raised -> Constant
+// 		If not -> Check Lowered Safety
+//		If not -> Manual Control
+
+//PRE-CONDITION: Arm Holding is Autonomous, 
+//No user input, but user needs to take manual on demand
+if((vexRT[Btn5U] == 0 && vexRT[Btn5D] == 0) 
+	&& (SensorValue[RightArm] >= PRE_HIGH || SensorValue[LeftArm] >= PRE_HIGH))
+{ // If no input and at the same time either arm is above PRE_HIGH...
+	LiftPower = 30;// Arbitrary Numbers tested: 45 too high, 30 seems to hold
+}
+else if(SensorValue[LeftArm] <= LOW || SensorValue[RightArm] <= LOW)
+	LiftPower = up*127 - down*0; // can only go up now
+else
+	LiftPower = vexRT[Btn5U]*127 - vexRT[Btn5D]*127; // Full Manual
