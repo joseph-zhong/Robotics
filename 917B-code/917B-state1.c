@@ -3,10 +3,7 @@
 #pragma config(Sensor, in1,    AutonSelect,    sensorPotentiometer)
 #pragma config(Sensor, in8,    RightArmAngle,  sensorPotentiometer)
 #pragma config(Sensor, dgtl1,  waitingButtonRed, sensorTouch)
-#pragma config(Sensor, dgtl4,  leftHang,       sensorDigitalOut)
-#pragma config(Sensor, dgtl5,  leftLaunch,     sensorDigitalOut)
-#pragma config(Sensor, dgtl6,  rightLaunch,    sensorDigitalOut)
-#pragma config(Sensor, dgtl7,  rightHang,      sensorDigitalOut)
+#pragma config(Sensor, dgtl11, LaunchSolenoid, sensorDigitalOut)
 #pragma config(Sensor, dgtl12, waitingButtonBlue, sensorTouch)
 #pragma config(Sensor, I2C_1,  LeftIEM,        sensorQuadEncoderOnI2CPort,    , AutoAssign)
 #pragma config(Sensor, I2C_2,  RightIEM,       sensorQuadEncoderOnI2CPort,    , AutoAssign)
@@ -1050,7 +1047,6 @@ task usercontrol()
 			{
 				toggleLaunch = true;
 			}
-
 			if(vexRT[Btn8D])
 			{
 				toggleLaunch = false;
@@ -1093,8 +1089,7 @@ task usercontrol()
 				motor[RightIntake] = motor[LeftIntake] = IntakePower;
 
 				//Set solenoids to individual powers;
-				SensorValue[leftLaunch] = SensorValue[rightLaunch] = toggleLaunch;
-				SensorValue[leftHang] = SensorValue[rightHang] = toggleHang;
+				SensorValue[LaunchSolenoid] = toggleLaunch;
 
 	} // end while update loop
 } // end task usercontrol
