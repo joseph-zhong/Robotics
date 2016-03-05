@@ -39,22 +39,22 @@ task autonomous() { /** Do nothing... */ }
 
 //User Control Mode
 task usercontrol() {
-	while (true) {
+  while (true) {
 	
-	  /** Drive Control */
-	  assignDriveMotors(vexRT[Ch3], vexRT[Ch3]);
+  /** Drive Control */
+  assignDriveMotors(vexRT[Ch3], vexRT[Ch3]);
 	  
-	  /** Other Motor Control */
-	  /** Maybe have some separate functionality for the claw? 
-	  if(vexRT[Btn6U]) {
-	    openClaw();
-	  }
-	  else {
-	    closeClaw();
-	  }
-	  */
+  /** Other Motor Control */
+  /** Maybe have some separate functionality for the claw? 
+  if(vexRT[Btn6U]) {
+    openClaw();
+  }
+  else {
+    closeClaw();
+  }
+  */
 	  
-	}
+  }
 }
 
 /** Helper Task to reset power values back to zero */
@@ -62,10 +62,12 @@ task reset() {
   assignDriveMotors(0, 0);
 }
 
-/** Task to assign power values to motors */
+/** Task to assign power values to motors 
+ * @param leftWheel1Pow float value bounded by abs(127) to power the Left Wheel Motor 
+ * @param rightWheel1Pow float value bounded by abs(127) to power the Right Wheel Motor */
 task assignDriveMotors(float leftWheel1Pow, float rightWheel1Pow) {
-  	motor[leftWheel1] = leftWheel1Pow;
-  	motor[rightWheel1] = rightWheel1Pow;
+  motor[leftWheel1] = leftWheel1Pow;
+  motor[rightWheel1] = rightWheel1Pow;
 }
 
 /** Task to open claw based on a time constant -- adjust as needed */
